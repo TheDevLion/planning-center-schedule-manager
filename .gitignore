@@ -1,0 +1,15 @@
+.github/
+.codex
+.vs
+AGENTS.md
+NOTES.md
+
+backend/.vs
+backend/api/bin
+backend/api/obj
+
+backend/tests/bin
+backend/tests/obj
+
+
+frontend/
