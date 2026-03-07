@@ -61,8 +61,8 @@ public class PlanningCenterServiceParser
             }
 
             // Check Duration (alone in line or mixed with activity)
-            if(LineContainsDuration(line, out var duration))
-                durations.Add(line);
+            if(LineContainsDuration(line, out var duration) && duration != null)
+                durations.Add(duration);
 
             // Check Activity (alone in line or mixed with activity)
             if(LineContainsActivity(line, out var activity))
@@ -112,6 +112,15 @@ public class PlanningCenterServiceParser
         // If line is all equals ("Length", "in mins")
         if (IgnoredExactLines.Any(ignoredLine => string.Equals(line, ignoredLine, StringComparison.OrdinalIgnoreCase)))
             return true;
+
+        // Ex.: "03/01 Length", "03/01 in mins", "03/01 Notes"
+        if (Regex.IsMatch(line, @"^\d{2}/\d{2}\s+(?<label>.+)$"))
+        {
+            var label = Regex.Match(line, @"^\d{2}/\d{2}\s+(?<label>.+)$").Groups["label"].Value.Trim();
+
+            if (IgnoredExactLines.Any(x => string.Equals(x, label, StringComparison.OrdinalIgnoreCase)))
+                return true;
+        }
 
         return false;
     }
