@@ -9,18 +9,19 @@ public class PlanningCenterServiceParser
     private static readonly string[] IgnoredExactLines =
     [
         "Length",
-        "in mins"
+        "in mins",
+        "Notes"
     ];
 
     public Schedule Parse(string rawOcrText)
     {
+        List<Activity> result = new List<Activity>();
         var splitLines = rawOcrText.Split('\n');
 
         DateTime? fileDate = null;
         List<string> durations = new();
         List<string?> responsibles = new();
         List<string> activities = new();
-        bool activityHasResponsible = false;
         
         for (int i = 0; i < splitLines.Length; i++)
         {
@@ -28,18 +29,20 @@ public class PlanningCenterServiceParser
 
             // Check file date line
             if (fileDate == null && IsDateLine(line, out var parsedDate))
+            {
                 fileDate = parsedDate;
-            else // Can only start reading activities, responsibles and duration after reading the file date
+                continue;
+            }
+            else if (fileDate == null) // Can only start reading activities, responsibles and duration after reading the file date
                 continue;
 
             if (CanLineBeIgnored(line))
                 continue;
 
             // Check Responsibles (Alone in line). There is only one responsible between two activities
-            if (!activityHasResponsible && IsResponsibleInLine(line))
+            if (IsResponsibleCandidateInLine(line))
             {
                 responsibles.Add(line);
-                activityHasResponsible = true;
                 continue;
             }
 
@@ -52,12 +55,17 @@ public class PlanningCenterServiceParser
             {
                 activities.Add(activity);
 
-                if (!activityHasResponsible) responsibles.Add(null);
-                activityHasResponsible = false;
+                if (activities.Count - responsibles.Count == 2)
+                    responsibles.Add(null);
             }
         }
 
-        return new Schedule(Array.Empty<Activity>(), fileDate);
+        for (int i = 0; i < activities.Count; i++) 
+        {
+            result.Add(new Activity(i, activities[i], responsibles[i], durations[i]));
+        }
+
+        return new Schedule(result, fileDate);
     }
 
     public bool IsDateLine(string dateLineCandidate, out DateTime parsedDate)
@@ -106,10 +114,10 @@ public class PlanningCenterServiceParser
         duration = null;
         return false;
     }
-    public bool IsResponsibleInLine(string line)
+    public bool IsResponsibleCandidateInLine(string line)
     {
-        // If line in format "Name Surname" || "Name1/Name2" return true
-        if (Regex.IsMatch(line, @"^(?:[\p{L}]+(?:\s+[\p{L}]+)+|[\p{L}]+(?:\s*\/\s*[\p{L}]+)+)$"))
+        // If line in format "Name" | "Name Surname" || "Name1/Name2" || "Name1 / Name2" return true
+        if (Regex.IsMatch(line, @"^(?:[\p{L}][\p{L}\p{M}'’-]*|[\p{L}][\p{L}\p{M}'’-]*\s+[\p{L}][\p{L}\p{M}'’-]*|[\p{L}][\p{L}\p{M}'’-]*\s*/\s*[\p{L}][\p{L}\p{M}'’-]*)$"))
             return true;
 
         return false;
