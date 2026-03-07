@@ -42,7 +42,21 @@ public class PlanningCenterServiceParser
             // Check Responsibles (Alone in line). There is only one responsible between two activities
             if (IsResponsibleCandidateInLine(line))
             {
-                responsibles.Add(line);
+                if (responsibles.Count == activities.Count)
+                {
+                    activities.Add(line);
+                }
+                else
+                {
+                    var splitLine = line.Split(" ");
+                    if (splitLine.Count() > 1 && !splitLine.Contains("/"))
+                    {
+                        activities.Add(line);
+                        responsibles.Add(null);
+                    }
+                    else
+                        responsibles.Add(line);
+                }
                 continue;
             }
 
@@ -62,7 +76,9 @@ public class PlanningCenterServiceParser
 
         for (int i = 0; i < activities.Count; i++) 
         {
-            result.Add(new Activity(i, activities[i], responsibles[i], durations[i]));
+            var responsible = i < responsibles.Count ? responsibles[i] : null;
+            var duration = i < durations.Count ? durations[i] : null;
+            result.Add(new Activity(i, activities[i], responsible, duration));
         }
 
         return new Schedule(result, fileDate);
