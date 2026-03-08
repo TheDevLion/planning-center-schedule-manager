@@ -19,6 +19,8 @@ public class PlanningCenterServiceParser
         DateTime? fileDate = null;
         List<string> durations = new();
         List<string?> responsibles = new();
+        List<string> activities = new();
+        bool activityHasResponsible = false;
         
         for (int i = 0; i < splitLines.Length; i++)
         {
@@ -33,16 +35,26 @@ public class PlanningCenterServiceParser
             if (CanLineBeIgnored(line))
                 continue;
 
-            // Check Responsibles (Alone in line)
-            if (IsResponsibleInLine(line))
+            // Check Responsibles (Alone in line). There is only one responsible between two activities
+            if (!activityHasResponsible && IsResponsibleInLine(line))
             {
                 responsibles.Add(line);
+                activityHasResponsible = true;
                 continue;
             }
 
             // Check Duration (alone in line or mixed with activity)
             if(LineContainsDuration(line, out var duration))
                 durations.Add(line);
+
+            // Check Activity (alone in line or mixed with activity)
+            if(LineContainsActivity(line, out var activity))
+            {
+                activities.Add(activity);
+
+                if (!activityHasResponsible) responsibles.Add(null);
+                activityHasResponsible = false;
+            }
         }
 
         return new Schedule(Array.Empty<Activity>(), fileDate);
@@ -101,6 +113,29 @@ public class PlanningCenterServiceParser
             return true;
 
         return false;
+    }
+
+    public bool LineContainsActivity(string line, out string activity)
+    {   
+        // Ignore numeric/time prefixes and start from the first word that begins with a letter.
+        var firstWordMatch = Regex.Match(line, @"(?:^|[\s])(?<activityStart>[\p{L}][\p{L}\p{M}'’-]*)");
+        if (!firstWordMatch.Success)
+        {
+            activity = string.Empty;
+            return false;
+        }
+
+        var startIndex = firstWordMatch.Groups["activityStart"].Index;
+        var candidate = line[startIndex..];
+
+        if (string.IsNullOrWhiteSpace(candidate))
+        {
+            activity = string.Empty;
+            return false;
+        }
+
+        activity = candidate;
+        return true;
     }
 }
 
