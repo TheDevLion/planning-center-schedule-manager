@@ -18,6 +18,7 @@ public class PlanningCenterServiceParser
 
         DateTime? fileDate = null;
         List<string> durations = new();
+        List<string?> responsibles = new();
         
         for (int i = 0; i < splitLines.Length; i++)
         {
@@ -33,8 +34,11 @@ public class PlanningCenterServiceParser
                 continue;
 
             // Check Responsibles (Alone in line)
-            if(IsResponsibleInLine(line))
-
+            if (IsResponsibleInLine(line))
+            {
+                responsibles.Add(line);
+                continue;
+            }
 
             // Check Duration (alone in line or mixed with activity)
             if(LineContainsDuration(line, out var duration))
@@ -88,6 +92,14 @@ public class PlanningCenterServiceParser
         }
 
         duration = null;
+        return false;
+    }
+    public bool IsResponsibleInLine(string line)
+    {
+        // If line in format "Name Surname" || "Name1/Name2" return true
+        if (Regex.IsMatch(line, @"^(?:[\p{L}]+(?:\s+[\p{L}]+)+|[\p{L}]+(?:\s*\/\s*[\p{L}]+)+)$"))
+            return true;
+
         return false;
     }
 }
