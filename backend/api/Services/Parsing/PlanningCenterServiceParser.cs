@@ -215,7 +215,7 @@ public class PlanningCenterServiceParser
         var currentIsClearlyActivity = !IsResponsibleCandidateInLine(currentActivityText);
 
         if (currentLineHasDuration)
-            return currentIsClearlyActivity && IsResponsibleCandidateInLine(pendingAmbiguousText);
+            return IsResponsibleCandidateInLine(pendingAmbiguousText);
 
         return currentIsClearlyActivity;
     }

@@ -323,6 +323,58 @@ public sealed class PlanningCenterServiceParserTests
         );
     }
 
+    [Fact]
+    public void Parse_HandlesAmbiguousResponsibleLines_WithDirtyActivityContext_AndTrailingTotal()
+    {
+        const string rawOcrText =
+            """
+            Journey to Mordor
+            March 1, 2026
+            03/01
+            9:30A
+            03/01 Length
+            in mins
+            0:00 Shire Prelude Track
+            0:00 Rivendell Countdown Cue
+            4:52 Fellowship Anthem
+            Frodo
+            11:04:52a 2:00 Unity Reflection
+            Aragorn Son
+            11:06:52a 7:27 Mountain Pass Journey
+            Legolas/Gimli
+            2:00 Path Briefing
+            Gandalf
+            4:56 Ancient Scroll Reading
+            Aragorn
+            2:30 Campfire Reflection
+            Samwise
+            1:00 Hope Chorus
+            Pippin Took
+            0:00 Dawn Departure Reprise
+            Frodo Baggins
+            24:45
+            Notes
+            """;
+
+        var result = _parser.Parse(rawOcrText);
+
+        Assert.Equal(new DateTime(2026, 3, 1, 0, 0, 0), result.Date);
+
+        Assert.Collection(
+            result.Activities,
+            item => AssertActivity(item, 0, "Shire Prelude Track", null, "0:00"),
+            item => AssertActivity(item, 1, "Rivendell Countdown Cue", null, "0:00"),
+            item => AssertActivity(item, 2, "Fellowship Anthem", "Frodo", "4:52"),
+            item => AssertActivity(item, 3, "Unity Reflection", "Aragorn Son", "2:00"),
+            item => AssertActivity(item, 4, "Mountain Pass Journey", "Legolas/Gimli", "7:27"),
+            item => AssertActivity(item, 5, "Path Briefing", "Gandalf", "2:00"),
+            item => AssertActivity(item, 6, "Ancient Scroll Reading", "Aragorn", "4:56"),
+            item => AssertActivity(item, 7, "Campfire Reflection", "Samwise", "2:30"),
+            item => AssertActivity(item, 8, "Hope Chorus", "Pippin Took", "1:00"),
+            item => AssertActivity(item, 9, "Dawn Departure Reprise", "Frodo Baggins", "0:00")
+        );
+    }
+
     private static void AssertActivity(Activity item, int expectedOrder, string expectedTitle, string? expectedResponsible, string? expectedDurationRaw)
     {
         Assert.Equal(expectedOrder, item.Order);
