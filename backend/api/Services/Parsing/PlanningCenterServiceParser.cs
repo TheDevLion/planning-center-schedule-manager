@@ -17,6 +17,7 @@ public class PlanningCenterServiceParser
         var splitLines = rawOcrText.Split('\n');
 
         DateTime? fileDate = null;
+        List<string> durations = new();
         
         for (int i = 0; i < splitLines.Length; i++)
         {
@@ -30,6 +31,14 @@ public class PlanningCenterServiceParser
 
             if (CanLineBeIgnored(line))
                 continue;
+
+            // Check Responsibles (Alone in line)
+            if(IsResponsibleInLine(line))
+
+
+            // Check Duration (alone in line or mixed with activity)
+            if(LineContainsDuration(line, out var duration))
+                durations.Add(line);
         }
 
         return new Schedule(Array.Empty<Activity>(), fileDate);
@@ -64,6 +73,21 @@ public class PlanningCenterServiceParser
         if (IgnoredExactLines.Any(ignoredLine => string.Equals(line, ignoredLine, StringComparison.OrdinalIgnoreCase)))
             return true;
 
+        return false;
+    }
+
+    public bool LineContainsDuration(string line, out string? duration)
+    {
+        // Match "m:ss" or "mm:ss" when token is isolated by start/end or spaces.
+        // Examples: "6:35", " 6:35 ", "Song 6:35 Next".
+        var durationMatch = Regex.Match(line, @"(?:^|\s)(?<duration>\d{1,2}:\d{2})(?=\s|$)");
+        if (durationMatch.Success)
+        {
+            duration = durationMatch.Groups["duration"].Value;
+            return true;
+        }
+
+        duration = null;
         return false;
     }
 }
