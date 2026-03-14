@@ -1,5 +1,5 @@
-.github/
 .codex
+.claude
 .vs
 AGENTS.md
 NOTES.md
@@ -12,4 +12,6 @@ backend/tests/bin
 backend/tests/obj
 
 
-frontend/
+frontend/node_modules
+frontend/dist
+frontend/.env

@@ -8,10 +8,25 @@ builder.Services.Configure<OcrOptions>(builder.Configuration.GetSection(OcrOptio
 
 builder.Services.AddHttpClient<OcrSpaceClient>();
 builder.Services.AddSingleton<PlanningCenterServiceParser>();
+
+var allowedOrigins = builder.Configuration["Cors:AllowedOrigins"]?
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    ?? ["http://localhost:5173"];
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.WithOrigins(allowedOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors();
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>
@@ -23,4 +38,3 @@ app.UseSwaggerUI(options =>
 app.MapScheduleEndpoints();
 
 app.Run();
-
