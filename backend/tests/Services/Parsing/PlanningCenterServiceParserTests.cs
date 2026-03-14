@@ -1,5 +1,6 @@
 using PlanningCenterScheduleManager.Backend.Models;
 using PlanningCenterScheduleManager.Backend.Services.Parsing;
+using System.Reflection;
 using Xunit;
 
 namespace PlanningCenterScheduleManager.Backend.Tests.Services.Parsing;
@@ -373,6 +374,144 @@ public sealed class PlanningCenterServiceParserTests
             item => AssertActivity(item, 8, "Hope Chorus", "Pippin Took", "1:00"),
             item => AssertActivity(item, 9, "Dawn Departure Reprise", "Frodo Baggins", "0:00")
         );
+    }
+
+    [Fact]
+    public void Parse_MapsTrainingFile_MordorMission_ToExpectedSchedule()
+    {
+        var rawOcrText = LoadTrainingFile("mordor_mission.txt");
+
+        var result = _parser.Parse(rawOcrText);
+
+        Assert.Equal(new DateTime(2026, 3, 25, 0, 0, 0), result.Date);
+        Assert.Collection(
+            result.Activities,
+            item => AssertActivity(item, 0, "Camp Setup, Gear Check & Road Music", null, "13:00"),
+            item => AssertActivity(item, 1, "Departure Countdown from the Shire", null, "2:00"),
+            item => AssertActivity(item, 2, "Crossing the Shire Fields", "Frodo", "5:28"),
+            item => AssertActivity(item, 3, "Council Strategy Meeting", "Gandalf", "5:00"),
+            item => AssertActivity(item, 4, "Blessing for the Road", "Elrond", "1:00"),
+            item => AssertActivity(item, 5, "March Toward the Mountains", "Aragorn", "6:14"),
+            item => AssertActivity(item, 6, "Scouting Ahead Through the Forest", "Legolas / Aragorn", "2:30"),
+            item => AssertActivity(item, 7, "Stealth Plan to Enter Mordor", "Gandalf", "20:00"),
+            item => AssertActivity(item, 8, "Map Reading & Route Confirmation", "Aragorn", "5:00"),
+            item => AssertActivity(item, 9, "Courage Speech", "Legolas", "3:38"),
+            item => AssertActivity(item, 10, "Group Resolve Before Final March", null, "5:00"),
+            item => AssertActivity(item, 11, "Final Instructions", "Gandalf", "4:00"),
+            item => AssertActivity(item, 12, "Departure Music", null, "5:00")
+        );
+    }
+
+    [Fact]
+    public void Parse_MapsTrainingFile_MordorMissionV2_ToExpectedSchedule()
+    {
+        var rawOcrText = LoadTrainingFile("mordor_mission_v2.txt");
+
+        var result = _parser.Parse(rawOcrText);
+
+        Assert.Equal(new DateTime(2026, 3, 25, 0, 0, 0), result.Date);
+        Assert.Collection(
+            result.Activities,
+            item => AssertActivity(item, 0, "Camp Gathering, Supply Check & Travel Music", null, "13:00"),
+            item => AssertActivity(item, 1, "Launch Countdown from Rivendell", null, "2:00"),
+            item => AssertActivity(item, 2, "Crossing the Misty Mountains", "Samwise", "5:28"),
+            item => AssertActivity(item, 3, "War Council Strategy Meeting", "Boromir", "5:00"),
+            item => AssertActivity(item, 4, "Blessing for the Quest", "Galadriel", "1:00"),
+            item => AssertActivity(item, 5, "March Toward the Black Gate", "Faramir", "6:14"),
+            item => AssertActivity(item, 6, "Scouting Ahead Through the Wild", "Legolas / Faramir", "2:30"),
+            item => AssertActivity(item, 7, "Stealth Plan to Enter Barad-d\u00fbr", "Saruman", "20:00"),
+            item => AssertActivity(item, 8, "Map Reading & Path Confirmation", "Faramir", "5:00"),
+            item => AssertActivity(item, 9, "Courage Speech", "Boromir", "3:38"),
+            item => AssertActivity(item, 10, "Group Resolve Before Final Push", null, "5:00"),
+            item => AssertActivity(item, 11, "Final Instructions", "Saruman", "4:00"),
+            item => AssertActivity(item, 12, "Departure Music", null, "5:00")
+        );
+    }
+
+    [Fact]
+    public void Parse_MapsTrainingFile_MordorMissionV3_ToExpectedSchedule()
+    {
+        var rawOcrText = LoadTrainingFile("mordor_mission_v3.txt");
+
+        var result = _parser.Parse(rawOcrText);
+
+        Assert.Equal(new DateTime(2026, 3, 1, 0, 0, 0), result.Date);
+        Assert.Collection(
+            result.Activities,
+            item => AssertActivity(item, 0, "Pre-Quest Ambience & BGM", null, "0:00"),
+            item => AssertActivity(item, 1, "Pre-Quest Countdown Video", null, "0:00"),
+            item => AssertActivity(item, 2, "Praise Il\u00favatar", "Elrond", "4:52"),
+            item => AssertActivity(item, 3, "Council Moment", "Gandalf Grey", "2:00"),
+            item => AssertActivity(item, 4, "Light", "Frodo/Elrond", "7:27"),
+            item => AssertActivity(item, 5, "Journey Message", "Aragorn", "25:00"),
+            item => AssertActivity(item, 6, "Reading of Prophecy", "Aragorn", "1:30"),
+            item => AssertActivity(item, 7, "Council Moment", null, "2:00"),
+            item => AssertActivity(item, 8, "Grace of Valar", null, "4:56"),
+            item => AssertActivity(item, 9, "Who Else", null, "2:30"),
+            item => AssertActivity(item, 10, "Quest Close", "Aragorn", "1:00"),
+            item => AssertActivity(item, 11, "Post-Quest BGM", null, "0:00")
+        );
+    }
+
+    [Fact]
+    public void Parse_AssignsResponsibleCorrectly_WhenDurationLineSeparatesShortActivityTitle()
+    {
+        const string rawOcrText =
+            """
+            Council Gathering
+            March 1, 2026
+            03/01
+            9:30A
+            03/01 Length
+            in mins
+            0:00 Prelude in Rivendell
+            4:52 Song of the Fellowship
+            Arwen
+            11:04:52a 2:00 Word of Hope
+            Gandalf Grey
+            11:06:52a 7:27
+            Lembas
+            Sam/Frodo
+            11:14:19a 25:00 March Briefing
+            Aragorn
+            39:19
+            Notes
+            """;
+
+        var result = _parser.Parse(rawOcrText);
+
+        Assert.Equal(new DateTime(2026, 3, 1, 0, 0, 0), result.Date);
+        Assert.Collection(
+            result.Activities,
+            item => AssertActivity(item, 0, "Prelude in Rivendell", null, "0:00"),
+            item => AssertActivity(item, 1, "Song of the Fellowship", "Arwen", "4:52"),
+            item => AssertActivity(item, 2, "Word of Hope", "Gandalf Grey", "2:00"),
+            item => AssertActivity(item, 3, "Lembas", "Sam/Frodo", "7:27"),
+            item => AssertActivity(item, 4, "March Briefing", "Aragorn", "25:00")
+        );
+    }
+
+    private static string LoadTrainingFile(string fileName)
+    {
+        var path = Path.Combine(GetRepositoryRoot(), "assets", "training", fileName);
+        return File.ReadAllText(path);
+    }
+
+    private static string GetRepositoryRoot()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null)
+        {
+            var hasAssetsDirectory = Directory.Exists(Path.Combine(directory.FullName, "assets"));
+            var hasBackendDirectory = Directory.Exists(Path.Combine(directory.FullName, "backend"));
+            if (hasAssetsDirectory && hasBackendDirectory)
+                return directory.FullName;
+
+            directory = directory.Parent;
+        }
+
+        throw new InvalidOperationException(
+            $"Could not resolve repository root from '{AppContext.BaseDirectory}' in {Assembly.GetExecutingAssembly().GetName().Name}.");
     }
 
     private static void AssertActivity(Activity item, int expectedOrder, string expectedTitle, string? expectedResponsible, string? expectedDurationRaw)
