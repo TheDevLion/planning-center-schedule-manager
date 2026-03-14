@@ -23,6 +23,7 @@ public class PlanningCenterServiceParser
         List<string?> responsibles = new();
         List<string> activities = new();
         string? pendingAmbiguous = null;
+        var previousLineHadDurationOnly = false;
 
         for (int i = 0; i < splitLines.Length; i++)
         {
@@ -47,7 +48,29 @@ public class PlanningCenterServiceParser
 
             // Check Activity (alone in line or mixed with activity)
             if (!LineContainsActivity(line, out var activityText))
+            {
+                previousLineHadDurationOnly = hasDuration;
                 continue;
+            }
+
+            // A duration-only line followed by a short token (e.g., "Light")
+            // should prefer activity classification instead of responsible.
+            if (previousLineHadDurationOnly)
+            {
+                if (pendingAmbiguous != null)
+                {
+                    if (activities.Count > responsibles.Count && IsResponsibleCandidateInLine(pendingAmbiguous))
+                        AddResponsibleOrFallbackToActivity(activities, responsibles, pendingAmbiguous);
+                    else
+                        AddActivity(activities, responsibles, pendingAmbiguous);
+
+                    pendingAmbiguous = null;
+                }
+
+                AddActivity(activities, responsibles, activityText);
+                previousLineHadDurationOnly = false;
+                continue;
+            }
 
             // Dirty lines are always activity (never responsible).
             var isDirtyForResponsible = IsDirtyLineForResponsible(line);
@@ -85,6 +108,7 @@ public class PlanningCenterServiceParser
             }
 
             AddActivity(activities, responsibles, activityText);
+            previousLineHadDurationOnly = false;
         }
 
         // If the stream ended with ambiguity, prefer activity.
