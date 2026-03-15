@@ -20,6 +20,8 @@ export const en = {
     import: "Import",
     importFile: "Import schedule file",
     editSchedule: "Edit schedule",
+    shareSchedule: "Share schedule",
+    linkCopied: "Link copied!",
   },
   edit: {
     title: "Edit schedule",
