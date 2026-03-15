@@ -9,6 +9,7 @@ import {
 import { getTranslation } from "../i18n/i18nStore";
 import { parseScheduleFile } from "../services/scheduleApi";
 import { DEFAULT_ACTIVITY, MOVE_HINT_TTL_MS, normalizeActivities } from "../utils/activities";
+import { parseScheduleFromHash } from "../utils/scheduleUrl";
 import { parseDurationToSeconds } from "../utils/time";
 import type { Activity, MoveDirection, MoveHints, RuntimeState, TimelineState } from "../types/schedule";
 
@@ -42,6 +43,7 @@ type ScheduleActions = {
   removeActivity: (id: string) => void;
   moveActivity: (index: number, direction: number) => void;
   setIsEditModalOpen: (open: boolean) => void;
+  importFromUrl: () => void;
 };
 
 const toTimeline = (s: ScheduleState): TimelineState => ({
@@ -186,4 +188,19 @@ export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
   },
 
   setIsEditModalOpen: (open) => set({ isEditModalOpen: open }),
+
+  importFromUrl: () => {
+    const activities = parseScheduleFromHash();
+    if (!activities || activities.length === 0) return;
+    set({
+      activities,
+      liveIndex: 0,
+      viewIndex: 0,
+      actualSecondsById: {},
+      isRunning: false,
+      totalSeconds: 0,
+      liveActivitySeconds: 0,
+    });
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  },
 }));

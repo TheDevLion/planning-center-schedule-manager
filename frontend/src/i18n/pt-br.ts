@@ -22,6 +22,8 @@ export const ptBr: Translations = {
     import: "Importar",
     importFile: "Importar arquivo de escala",
     editSchedule: "Editar escala",
+    shareSchedule: "Compartilhar escala",
+    linkCopied: "Link copiado!",
   },
   edit: {
     title: "Editar escala",
