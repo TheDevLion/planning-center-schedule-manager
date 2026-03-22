@@ -26,7 +26,7 @@ export const ControlButton = ({
   label,
   variant = "full",
 }: ControlButtonProps): JSX.Element => {
-  const sizeClass = variant === "square" ? "h-9 w-9" : "min-h-10 w-full";
+  const sizeClass = variant === "square" ? "h-7 w-7 md:h-9 md:w-9" : "min-h-8 w-full md:min-h-10";
   const contentClass = label ? "gap-1 px-2 text-sm font-semibold" : "";
 
   return (
@@ -41,7 +41,7 @@ export const ControlButton = ({
       className={`${BASE_CLASS} ${sizeClass} ${contentClass}`.trim()}
     >
       {icon}
-      {label ? <span>{label}</span> : null}
+      {label ? <span className="hidden md:inline">{label}</span> : null}
     </button>
   );
 };
