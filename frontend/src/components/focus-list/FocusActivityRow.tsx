@@ -34,24 +34,24 @@ export const FocusActivityRow = ({
       id={`focus-row-${activity.id}`}
       data-testid={`focus-row-${absoluteIndex}`}
       key={activity.id}
-      className={`relative flex min-h-[58px] items-center gap-3 rounded-[10px] border px-2.5 py-2 sm:min-h-16 sm:px-3 sm:py-2.5 ${rowClass}`}
+      className={`relative flex min-h-[44px] min-w-0 items-center gap-2 overflow-hidden rounded-[10px] border px-2 py-1.5 md:min-h-16 md:gap-3 md:px-3 md:py-2.5 ${rowClass}`}
     >
       {isLive && isViewed ? (
         <span className="absolute bottom-2 left-0 top-2 w-1 rounded bg-green-600" aria-hidden />
       ) : null}
-      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky-500 text-sm font-semibold text-white">
+      <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-500 text-xs font-semibold text-white md:h-8 md:w-8 md:text-sm">
         {absoluteIndex + 1}
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex min-w-0 items-center gap-1.5">
-          <strong className="truncate text-[0.95rem] leading-tight text-slate-900">{activity.title}</strong>
+          <strong className="min-w-0 flex-1 truncate text-[0.95rem] leading-tight text-slate-900">{activity.title}</strong>
           {isLive && (
-            <span className="rounded-full bg-green-100 px-2 py-0.5 text-[0.68rem] font-bold text-green-800">
+            <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[0.68rem] font-bold text-green-800">
               {t.focus.live}
             </span>
           )}
           {isViewed && !isLive && (
-            <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[0.68rem] font-bold text-blue-700">
+            <span className="shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-[0.68rem] font-bold text-blue-700">
               {t.focus.view}
             </span>
           )}

@@ -19,32 +19,30 @@ export const LiveSummary = (): JSX.Element => {
   }, [activities, liveIndex, t.live.unassigned]);
 
   return (
-    <>
-      <div className="pr-24">
-        <div className="flex items-center gap-2">
-          <h3 className="m-0 text-[0.86rem] text-slate-600">{t.live.activity}</h3>
-          <span
-            id="live-position-indicator"
-            data-testid="live-position-indicator"
-            className="rounded-full bg-slate-100 px-2 py-0.5 text-[0.72rem] font-semibold text-slate-700"
-          >
-            {livePositionLabel}
-          </span>
-        </div>
-        <strong className="block overflow-hidden text-ellipsis whitespace-nowrap text-[1.05rem] leading-tight text-slate-900 sm:text-[1.9rem]">
-          {currentLiveTitle}
-        </strong>
+    <div className="min-w-0 flex-1">
+      <div className="flex items-center gap-2">
+        <h3 className="m-0 text-[0.86rem] text-slate-600">{t.live.activity}</h3>
+        <span
+          id="live-position-indicator"
+          data-testid="live-position-indicator"
+          className="rounded-full bg-slate-100 px-2 py-0.5 text-[0.72rem] font-semibold text-slate-700"
+        >
+          {livePositionLabel}
+        </span>
       </div>
+      <strong className="block truncate text-[0.9rem] leading-tight text-slate-900 md:text-[1.9rem]">
+        {currentLiveTitle}
+      </strong>
 
       <div className="flex min-w-0 items-end gap-2">
         <div className="min-w-0">
           <h3 className="m-0 text-[0.72rem] uppercase tracking-[0.03em] text-slate-600">{t.live.responsible}</h3>
-          <strong className="block overflow-hidden text-ellipsis whitespace-nowrap text-[0.92rem] text-slate-900 sm:text-base">
+          <strong className="block truncate text-[0.92rem] text-slate-900 sm:text-base">
             {liveResponsible}
           </strong>
         </div>
 
-        <div className="ml-auto text-right">
+        <div className="ml-auto shrink-0 text-right">
           <h3 className="m-0 text-[0.72rem] uppercase tracking-[0.03em] text-slate-600">{t.live.overallTimer}</h3>
           <strong
             id="overall-timer"
@@ -55,6 +53,6 @@ export const LiveSummary = (): JSX.Element => {
           </strong>
         </div>
       </div>
-    </>
+    </div>
   );
 };

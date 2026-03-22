@@ -15,7 +15,7 @@ export const SectionCard = ({
     <section
       id={id}
       data-testid={dataTestId}
-      className="rounded-xl bg-white p-3 shadow-[0_4px_20px_rgba(15,23,42,0.08)] sm:p-[18px]"
+      className="overflow-hidden rounded-xl bg-white p-2 shadow-[0_4px_20px_rgba(15,23,42,0.08)] md:p-[18px]"
     >
       {children}
     </section>
