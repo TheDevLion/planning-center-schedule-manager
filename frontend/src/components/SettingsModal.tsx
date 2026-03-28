@@ -7,6 +7,7 @@ import { SettingsHeader } from "./settings/SettingsHeader";
 import { LanguageSection } from "./settings/LanguageSection";
 import { ScheduleSection } from "./settings/ScheduleSection";
 import { TimerSection } from "./settings/TimerSection";
+import { DisplaySection } from "./settings/DisplaySection";
 import { HelpSection } from "./settings/HelpSection";
 
 export const SettingsModal = (): JSX.Element | null => {
@@ -56,6 +57,8 @@ export const SettingsModal = (): JSX.Element | null => {
         <ScheduleSection />
         <div className="border-t border-slate-100" />
         <TimerSection />
+        <div className="border-t border-slate-100" />
+        <DisplaySection />
         <div className="border-t border-slate-100" />
         <HelpSection onStartTour={handleStartTour} />
       </div>
