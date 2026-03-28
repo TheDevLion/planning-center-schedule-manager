@@ -34,10 +34,10 @@ export const useGuidedTour = (): {
           },
         },
         {
-          element: "#import-button",
+          element: "#settings-button",
           popover: {
-            title: t.tour.steps.importTitle,
-            description: t.tour.steps.importDescription,
+            title: t.tour.steps.settingsTitle,
+            description: t.tour.steps.settingsDescription,
           },
         },
         {
