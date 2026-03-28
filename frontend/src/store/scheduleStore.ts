@@ -22,8 +22,10 @@ type ScheduleState = {
   isRunning: boolean;
   totalSeconds: number;
   liveActivitySeconds: number;
+  autoAdvance: boolean;
 
   isEditModalOpen: boolean;
+  isSettingsOpen: boolean;
   moveHints: MoveHints;
   isLoading: boolean;
   error: string;
@@ -43,6 +45,8 @@ type ScheduleActions = {
   removeActivity: (id: string) => void;
   moveActivity: (index: number, direction: number) => void;
   setIsEditModalOpen: (open: boolean) => void;
+  setIsSettingsOpen: (open: boolean) => void;
+  setAutoAdvance: (value: boolean) => void;
   importFromUrl: () => void;
 };
 
@@ -69,7 +73,9 @@ export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
   isRunning: false,
   totalSeconds: 0,
   liveActivitySeconds: 0,
+  autoAdvance: true,
   isEditModalOpen: false,
+  isSettingsOpen: false,
   moveHints: {},
   isLoading: false,
   error: "",
@@ -101,7 +107,7 @@ export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
     const newLiveSeconds = state.liveActivitySeconds + 1;
 
     const current = state.activities[state.liveIndex];
-    if (current) {
+    if (current && state.autoAdvance) {
       const duration = parseDurationToSeconds(current.durationValue);
       if (duration && state.liveActivitySeconds < duration && newLiveSeconds >= duration) {
         const transition = concludeTransition({
@@ -188,6 +194,10 @@ export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
   },
 
   setIsEditModalOpen: (open) => set({ isEditModalOpen: open }),
+
+  setIsSettingsOpen: (open) => set({ isSettingsOpen: open }),
+
+  setAutoAdvance: (value) => set({ autoAdvance: value }),
 
   importFromUrl: () => {
     const activities = parseScheduleFromHash();

@@ -44,6 +44,20 @@ export const en = {
   errors: {
     ocrFailed: "Failed to process OCR",
   },
+  settings: {
+    title: "Settings",
+    close: "Close settings",
+    language: "Language",
+    schedule: "Schedule",
+    importFile: "Import file",
+    shareSchedule: "Share schedule",
+    linkCopied: "Link copied!",
+    timer: "Timer",
+    autoAdvance: "Auto-advance activities",
+    autoAdvanceDescription: "Automatically advance to the next activity when the timer expires.",
+    help: "Help",
+    startTour: "Start guided tour",
+  },
   tour: {
     start: "Tour",
     next: "Next",
@@ -52,8 +66,8 @@ export const en = {
     steps: {
       welcomeTitle: "Welcome",
       welcomeDescription: "This web app helps you control your schedule in real time.",
-      importTitle: "Import schedule",
-      importDescription: "Upload a PDF or image file to load activities (currently supporting some report version from app 'Planning Center Schedule').",
+      settingsTitle: "Settings",
+      settingsDescription: "Open settings to import a schedule, share, change language, or adjust the timer.",
       editTitle: "Edit activities",
       editDescription: "Open the editor to add, remove, reorder, and update activities.",
       liveTitle: "Start live control",
