@@ -90,4 +90,4 @@ pnpm typecheck
 
 ## License
 
-Private project.
+Public repository. Do not commit secrets (API keys, tokens, credentials, or private data).

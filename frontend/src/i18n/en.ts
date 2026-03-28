@@ -44,6 +44,24 @@ export const en = {
   errors: {
     ocrFailed: "Failed to process OCR",
   },
+  tour: {
+    start: "Tour",
+    next: "Next",
+    previous: "Back",
+    done: "Done",
+    steps: {
+      welcomeTitle: "Welcome",
+      welcomeDescription: "This web app helps you control your schedule in real time.",
+      importTitle: "Import schedule",
+      importDescription: "Upload a PDF or image file to load activities (currently supporting some report version from app 'Planning Center Schedule').",
+      editTitle: "Edit activities",
+      editDescription: "Open the editor to add, remove, reorder, and update activities.",
+      liveTitle: "Start live control",
+      liveDescription: "Start or pause the live timer while running your event.",
+      focusTitle: "Track the flow",
+      focusDescription: "This list highlights live and next activities.",
+    },
+  },
 };
 
 export type Translations = typeof en;

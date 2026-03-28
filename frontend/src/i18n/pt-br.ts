@@ -46,4 +46,22 @@ export const ptBr: Translations = {
   errors: {
     ocrFailed: "Falha ao processar OCR",
   },
+  tour: {
+    start: "Tour",
+    next: "Proximo",
+    previous: "Voltar",
+    done: "Concluir",
+    steps: {
+      welcomeTitle: "Boas-vindas",
+      welcomeDescription: "Esta sistema te ajuda a controlar sua escala em tempo real.",
+      importTitle: "Importar escala",
+      importDescription: "Envie um PDF ou imagem para carregar as atividades (atualmente suporte a algumas versões de relatório do app 'Planning Center Schedule').",
+      editTitle: "Editar atividades",
+      editDescription: "Abra o editor para adicionar, remover, reordenar e atualizar atividades.",
+      liveTitle: "Controle ao vivo",
+      liveDescription: "Inicie ou pause o timer ao vivo durante o evento.",
+      focusTitle: "Acompanhar fluxo",
+      focusDescription: "Esta lista destaca a atividade ao vivo e as atividade em sequência.",
+    },
+  },
 };
