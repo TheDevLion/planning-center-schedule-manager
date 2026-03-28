@@ -2,6 +2,7 @@
 
 A real-time event schedule controller that lets worship teams and event coordinators manage live service sequences. Upload a Planning Center schedule (PDF or image), and control the flow of activities in real time with play/pause, conclude, and navigation controls.
 
+
 ## Features
 
 - **Schedule import** -- Upload a PDF or image of a Planning Center service schedule; the backend uses OCR to parse it into structured activities.
