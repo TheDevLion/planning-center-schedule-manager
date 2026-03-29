@@ -3,7 +3,7 @@ import { ArrowDown, ArrowUp, Trash2 } from "lucide-react";
 import { useTranslation } from "../../i18n/i18nStore";
 
 const ACTION_BUTTON_CLASS =
-  "inline-flex h-7 w-7 items-center justify-center rounded-[8px] border border-slate-300 bg-slate-50 text-slate-900 transition hover:border-slate-400 hover:bg-indigo-50 disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex h-8 w-8 items-center justify-center rounded-[8px] border border-btn-border bg-btn-bg text-brand shadow-sm transition hover:border-btn-hover-border hover:bg-btn-hover-bg active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50";
 
 type RowActionButtonsProps = {
   activityId: string;

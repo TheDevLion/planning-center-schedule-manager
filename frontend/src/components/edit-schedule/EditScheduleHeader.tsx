@@ -11,14 +11,14 @@ export const EditScheduleHeader = ({ onAdd, onClose }: EditScheduleHeaderProps):
   const t = useTranslation();
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-2">
-      <h2 className="m-0 text-lg font-semibold text-slate-900">{t.edit.title}</h2>
+    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2">
+      <h2 className="m-0 text-lg font-semibold text-txt">{t.edit.title}</h2>
       <div className="inline-flex items-center gap-2">
         <button
           id="add-activity-button"
           data-testid="add-activity-button"
           onClick={onAdd}
-          className="inline-flex min-h-9 items-center gap-1 rounded-[10px] border border-slate-300 bg-slate-50 px-3 py-1.5 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-indigo-50"
+          className="inline-flex min-h-9 items-center gap-1 rounded-[10px] border border-btn-border bg-btn-bg px-3 py-1.5 text-sm font-semibold text-brand shadow-sm transition hover:border-btn-hover-border hover:bg-btn-hover-bg"
         >
           <Plus size={16} />
           <span>{t.edit.addActivity}</span>
@@ -29,7 +29,7 @@ export const EditScheduleHeader = ({ onAdd, onClose }: EditScheduleHeaderProps):
           type="button"
           aria-label={t.edit.close}
           onClick={onClose}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-slate-300 bg-slate-50 text-slate-900 transition hover:border-slate-400 hover:bg-indigo-50 sm:h-[34px] sm:w-[34px]"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-btn-border bg-btn-bg text-brand shadow-sm transition hover:border-btn-hover-border hover:bg-btn-hover-bg sm:h-[34px] sm:w-[34px]"
         >
           <X size={16} />
         </button>

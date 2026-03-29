@@ -27,7 +27,7 @@ export const FocusListContent = (): JSX.Element => {
 
   if (activities.length === 0) {
     return (
-      <p id="empty-activities" data-testid="empty-activities" className="py-2 text-slate-600">
+      <p id="empty-activities" data-testid="empty-activities" className="py-2 text-txt-secondary">
         {t.focus.noActivities}
       </p>
     );

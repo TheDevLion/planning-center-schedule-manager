@@ -25,7 +25,7 @@ export const AppHeader = (): JSX.Element => {
           type="button"
           aria-label={t.settings.title}
           onClick={() => setIsSettingsOpen(true)}
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card-alt text-txt-secondary transition hover:border-border-strong hover:bg-card"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-btn-border bg-btn-bg text-brand shadow-sm transition hover:border-btn-hover-border hover:bg-btn-hover-bg"
         >
           <Settings size={16} />
         </button>
