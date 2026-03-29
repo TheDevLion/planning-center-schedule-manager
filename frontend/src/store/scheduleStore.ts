@@ -73,7 +73,7 @@ export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
   isRunning: false,
   totalSeconds: 0,
   liveActivitySeconds: 0,
-  autoAdvance: true,
+  autoAdvance: false,
   isEditModalOpen: false,
   isSettingsOpen: false,
   moveHints: {},
