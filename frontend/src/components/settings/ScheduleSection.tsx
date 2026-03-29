@@ -33,7 +33,7 @@ export const ScheduleSection = (): JSX.Element => {
 
   return (
     <div className="grid gap-1">
-      <span className="text-[0.72rem] font-semibold uppercase tracking-[0.05em] text-slate-500">
+      <span className="text-xs font-semibold uppercase tracking-[0.05em] text-txt-tertiary">
         {t.settings.schedule}
       </span>
 
@@ -43,9 +43,9 @@ export const ScheduleSection = (): JSX.Element => {
         type="button"
         onClick={() => fileInputRef.current?.click()}
         disabled={isLoading}
-        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium text-slate-900 transition hover:bg-slate-50 active:bg-slate-100 disabled:opacity-50"
+        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium text-txt transition hover:bg-card-alt active:bg-slate-100 disabled:opacity-50"
       >
-        {isLoading ? <Loader2 size={16} className="animate-spin text-slate-500" /> : <Upload size={16} className="text-slate-500" />}
+        {isLoading ? <Loader2 size={16} className="animate-spin text-txt-tertiary" /> : <Upload size={16} className="text-txt-tertiary" />}
         <span>{t.settings.importFile}</span>
       </button>
 
@@ -64,18 +64,18 @@ export const ScheduleSection = (): JSX.Element => {
         type="button"
         onClick={handleShare}
         disabled={activities.length === 0}
-        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium text-slate-900 transition hover:bg-slate-50 active:bg-slate-100 disabled:opacity-50"
+        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium text-txt transition hover:bg-card-alt active:bg-slate-100 disabled:opacity-50"
       >
         {copied ? (
           <Check size={16} className="text-green-500" />
         ) : (
-          <Share2 size={16} className="text-slate-500" />
+          <Share2 size={16} className="text-txt-tertiary" />
         )}
         <span>{copied ? t.settings.linkCopied : t.settings.shareSchedule}</span>
       </button>
 
       {error && (
-        <span className="px-3 text-[0.82rem] text-red-600">{error}</span>
+        <span className="px-3 text-[0.84rem] text-red-600">{error}</span>
       )}
     </div>
   );

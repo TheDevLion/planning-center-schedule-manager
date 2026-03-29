@@ -47,11 +47,11 @@ export const EditScheduleRow = ({
     <div
       id={`edit-row-${activity.id}`}
       data-testid={`edit-row-${index}`}
-      className="rounded-[10px] border border-slate-200 bg-white p-2.5"
+      className="rounded-[10px] border border-border bg-card p-2.5"
     >
       <div className="grid gap-2 sm:hidden">
         <div className="flex min-w-0 items-center gap-2">
-          <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-200 text-sm">
+          <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-border text-sm">
             {index + 1}
           </span>
           <TitleInputField
@@ -70,7 +70,7 @@ export const EditScheduleRow = ({
             value={activity.responsible}
             onChange={(e) => updateActivity(activity.id, "responsible", e.target.value)}
             placeholder={t.edit.responsible}
-            className="h-7 min-w-0 flex-1 truncate rounded-full border border-slate-200 bg-white px-2 text-center text-[0.68rem] font-semibold text-red-800 outline-none"
+            className="h-7 min-w-0 flex-1 truncate rounded-full border border-border bg-card px-2 text-center text-xs font-semibold text-responsible-text outline-none"
           />
           <DurationInputField
             activityId={activity.id}
@@ -78,7 +78,7 @@ export const EditScheduleRow = ({
             value={activity.durationValue}
             onChange={handleDurationChange}
             onBlur={handleDurationBlur}
-            className="h-7 w-[76px] shrink-0 rounded-full border border-slate-200 bg-white px-2 text-center text-sm font-semibold text-slate-700 outline-none"
+            className="h-7 w-[76px] shrink-0 rounded-full border border-border bg-card px-2 text-center text-sm font-semibold text-txt-secondary outline-none"
           />
         </div>
         <div className="flex items-center justify-end">
@@ -112,7 +112,7 @@ export const EditScheduleRow = ({
             value={activity.responsible}
             onChange={(e) => updateActivity(activity.id, "responsible", e.target.value)}
             placeholder={t.edit.responsible}
-            className="w-28 shrink-0 rounded-full border border-slate-200 bg-white px-2 py-0.5 text-center text-[0.72rem] font-semibold text-red-800 outline-none"
+            className="w-28 shrink-0 rounded-full border border-border bg-card px-2 py-0.5 text-center text-xs font-semibold text-responsible-text outline-none"
           />
         </div>
 
@@ -122,7 +122,7 @@ export const EditScheduleRow = ({
           value={activity.durationValue}
           onChange={handleDurationChange}
           onBlur={handleDurationBlur}
-          className="min-h-10 w-full rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-900 outline-none"
+          className="min-h-10 w-full rounded-lg border border-border-strong px-2.5 py-2 text-sm text-txt outline-none"
         />
 
         <div className="flex flex-wrap items-center gap-1.5">

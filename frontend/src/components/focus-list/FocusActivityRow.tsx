@@ -4,10 +4,10 @@ import type { Activity } from "../../types/schedule";
 import { formatTime } from "../../utils/time";
 
 const rowClassByState = ({ isLive, isViewed }: { isLive: boolean; isViewed: boolean }): string => {
-  if (isLive && isViewed) return "border-green-500 bg-emerald-50 shadow-[0_0_0_2px_rgba(34,197,94,0.15)]";
-  if (isLive) return "border-green-300 bg-green-50";
-  if (isViewed) return "border-amber-300 bg-amber-50";
-  return "border-slate-200 bg-slate-50";
+  if (isLive && isViewed) return "border-live-viewed-border bg-live-viewed-bg shadow-[0_0_0_2px_var(--live-viewed-shadow)]";
+  if (isLive) return "border-live-border bg-live-bg";
+  if (isViewed) return "border-viewed-border bg-viewed-bg";
+  return "border-border bg-card-alt";
 };
 
 type FocusActivityRowProps = {
@@ -34,41 +34,41 @@ export const FocusActivityRow = ({
       id={`focus-row-${activity.id}`}
       data-testid={`focus-row-${absoluteIndex}`}
       key={activity.id}
-      className={`relative flex min-h-[44px] min-w-0 items-center gap-2 overflow-hidden rounded-[10px] border px-2 py-1.5 md:min-h-16 md:gap-3 md:px-3 md:py-2.5 ${rowClass}`}
+      className={`relative flex min-h-[48px] min-w-0 items-center gap-2 overflow-hidden rounded-[10px] border px-2 py-2 md:min-h-16 md:gap-3 md:px-3 md:py-2.5 ${rowClass}`}
     >
       {isLive && isViewed ? (
-        <span className="absolute bottom-2 left-0 top-2 w-1 rounded bg-green-600" aria-hidden />
+        <span className="absolute bottom-2 left-0 top-2 w-1 rounded bg-live-accent" aria-hidden />
       ) : null}
-      <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sky-500 text-xs font-semibold text-white md:h-8 md:w-8 md:text-sm">
+      <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-number-bg text-xs font-semibold text-number-text md:h-8 md:w-8 md:text-sm">
         {absoluteIndex + 1}
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex min-w-0 items-center gap-1.5">
-          <strong className="min-w-0 flex-1 truncate text-[0.95rem] leading-tight text-slate-900">{activity.title}</strong>
+          <strong className="min-w-0 flex-1 truncate text-base leading-tight text-txt">{activity.title}</strong>
           {isLive && (
-            <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[0.68rem] font-bold text-green-800">
+            <span className="shrink-0 rounded-full bg-live-badge-bg px-2 py-0.5 text-xs font-bold text-live-badge-text">
               {t.focus.live}
             </span>
           )}
           {isViewed && !isLive && (
-            <span className="shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-[0.68rem] font-bold text-blue-700">
+            <span className="shrink-0 rounded-full bg-viewed-badge-bg px-2 py-0.5 text-xs font-bold text-viewed-badge-text">
               {t.focus.view}
             </span>
           )}
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
           {activity.responsible && (
-            <span className="rounded-full bg-red-100 px-2 py-0.5 text-[0.72rem] font-semibold text-red-800">
+            <span className="rounded-full bg-responsible-bg px-2 py-0.5 text-xs font-semibold text-responsible-text">
               {activity.responsible}
             </span>
           )}
           {activity.durationValue && (
-            <span className="text-[0.75rem] font-semibold text-slate-700">{activity.durationValue}</span>
+            <span className="text-xs font-semibold text-txt-secondary">{activity.durationValue}</span>
           )}
           {isLive ? (
-            <span className="text-[0.72rem] font-bold text-teal-700">{t.focus.actual} {formatTime(liveActivitySeconds)}</span>
+            <span className="text-xs font-bold text-teal-700">{t.focus.actual} {formatTime(liveActivitySeconds)}</span>
           ) : actualSeconds !== undefined ? (
-            <span className="text-[0.72rem] font-semibold text-slate-700">
+            <span className="text-xs font-semibold text-txt-secondary">
               {t.focus.actual} {formatTime(actualSeconds)}
             </span>
           ) : null}

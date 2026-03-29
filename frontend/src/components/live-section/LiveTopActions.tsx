@@ -21,7 +21,7 @@ export const LiveTopActions = (): JSX.Element => {
         icon={<ClipboardList size={16} />}
       />
       {error && (
-        <span className="text-right text-[0.82rem] text-red-600">{error}</span>
+        <span className="text-right text-[0.84rem] text-red-600">{error}</span>
       )}
     </div>
   );
