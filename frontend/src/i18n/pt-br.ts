@@ -2,8 +2,7 @@ import type { Translations } from "./en";
 
 export const ptBr: Translations = {
   app: {
-    title: "Gerenciador de Escala Planning Center",
-    subtitle: "Controle a sequência do evento em tempo real.",
+    title: "Controle a sequência do evento em tempo real.",
   },
   live: {
     activity: "Atividade ao vivo",

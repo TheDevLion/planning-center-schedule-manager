@@ -11,16 +11,13 @@ export const AppHeader = (): JSX.Element => {
     <header
       id="app-header"
       data-testid="app-header"
-      className="rounded-xl border border-blue-100 bg-gradient-to-br from-white to-blue-50 px-4 py-3"
+      className="rounded-xl border border-header-border bg-gradient-to-br from-header-from to-header-to px-4 py-3"
     >
       <div className="flex items-center justify-between gap-2">
         <div>
-          <h1 className="m-0 text-[1.15em] font-semibold leading-tight text-slate-900">
+          <h1 className="m-0 text-lg font-semibold leading-tight text-txt">
             {t.app.title}
           </h1>
-          <p className="m-0 mt-1 text-sm font-medium text-slate-600 sm:text-[0.92rem]">
-            {t.app.subtitle}
-          </p>
         </div>
         <button
           id="settings-button"
@@ -28,7 +25,7 @@ export const AppHeader = (): JSX.Element => {
           type="button"
           aria-label={t.settings.title}
           onClick={() => setIsSettingsOpen(true)}
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-700 transition hover:border-slate-300 hover:bg-white"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border bg-card-alt text-txt-secondary transition hover:border-border-strong hover:bg-card"
         >
           <Settings size={16} />
         </button>
