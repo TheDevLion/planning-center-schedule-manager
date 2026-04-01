@@ -38,7 +38,7 @@ export const SettingsModal = (): JSX.Element | null => {
     <div
       id="settings-modal-backdrop"
       data-testid="settings-modal-backdrop"
-      className="fixed inset-0 z-40 flex items-start justify-center bg-txt/30 p-3 pt-12 sm:items-center sm:pt-3"
+      className="fixed inset-0 z-40 flex items-start justify-center bg-black/50 p-3 pt-12 sm:items-center sm:pt-3"
       onClick={onClose}
       role="presentation"
     >
