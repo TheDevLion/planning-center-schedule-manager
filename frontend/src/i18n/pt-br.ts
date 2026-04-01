@@ -61,6 +61,7 @@ export const ptBr: Translations = {
     fullscreenDescription: "Oculta os controles do navegador para uma visualização mais limpa durante eventos.",
     help: "Ajuda",
     startTour: "Iniciar tour guiado",
+    resetSchedule: "Resetar escala",
   },
   tour: {
     start: "Tour",
