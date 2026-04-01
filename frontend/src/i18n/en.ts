@@ -59,6 +59,7 @@ export const en = {
     fullscreenDescription: "Hide browser controls for a cleaner view during events.",
     help: "Help",
     startTour: "Start guided tour",
+    resetSchedule: "Reset schedule",
   },
   tour: {
     start: "Tour",
