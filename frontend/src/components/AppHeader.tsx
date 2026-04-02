@@ -1,10 +1,12 @@
 import { Settings } from "lucide-react";
 
+import { useLiveClock } from "../hooks/useLiveClock";
 import { useTranslation } from "../i18n/i18nStore";
 import { useScheduleStore } from "../store/scheduleStore";
 
 export const AppHeader = (): JSX.Element => {
   const t = useTranslation();
+  const { time, timezone } = useLiveClock();
   const setIsSettingsOpen = useScheduleStore((s) => s.setIsSettingsOpen);
 
   return (
@@ -14,10 +16,13 @@ export const AppHeader = (): JSX.Element => {
       className="rounded-xl border border-header-border bg-gradient-to-br from-header-from to-header-to px-4 py-3"
     >
       <div className="flex items-center justify-between gap-2">
-        <div>
+        <div className="flex items-baseline gap-3">
           <h1 className="m-0 text-lg font-semibold leading-tight text-txt">
             {t.app.title}
           </h1>
+          <span className="rounded-full bg-black/10 px-2.5 py-0.5 font-mono text-sm font-semibold tabular-nums text-txt-secondary">
+            {time} <span className="text-xs font-normal text-txt-tertiary">{timezone}</span>
+          </span>
         </div>
         <button
           id="settings-button"
