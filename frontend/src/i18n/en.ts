@@ -1,7 +1,6 @@
 export const en = {
   app: {
-    title: "Planning Center Schedule Manager",
-    subtitle: "Control the event sequence in real time.",
+    title: "Control the event sequence in real time.",
   },
   live: {
     activity: "Live activity",
