@@ -21,33 +21,33 @@ export const LiveSummary = (): JSX.Element => {
   return (
     <div className="min-w-0 flex-1">
       <div className="flex items-center gap-2">
-        <h3 className="m-0 text-[0.86rem] text-slate-600">{t.live.activity}</h3>
+        <h3 className="m-0 text-sm text-txt-secondary">{t.live.activity}</h3>
         <span
           id="live-position-indicator"
           data-testid="live-position-indicator"
-          className="rounded-full bg-slate-100 px-2 py-0.5 text-[0.72rem] font-semibold text-slate-700"
+          className="rounded-full bg-card-alt px-2 py-0.5 text-xs font-semibold text-txt-secondary"
         >
           {livePositionLabel}
         </span>
       </div>
-      <strong className="block truncate text-[0.9rem] leading-tight text-slate-900 md:text-[1.9rem]">
+      <strong className="block truncate text-base leading-tight text-txt md:text-[1.9rem]">
         {currentLiveTitle}
       </strong>
 
       <div className="flex min-w-0 items-end gap-2">
         <div className="min-w-0">
-          <h3 className="m-0 text-[0.72rem] uppercase tracking-[0.03em] text-slate-600">{t.live.responsible}</h3>
-          <strong className="block truncate text-[0.92rem] text-slate-900 sm:text-base">
+          <h3 className="m-0 text-xs uppercase tracking-[0.03em] text-txt-secondary">{t.live.responsible}</h3>
+          <strong className="block truncate text-[0.94rem] text-txt sm:text-base">
             {liveResponsible}
           </strong>
         </div>
 
         <div className="ml-auto shrink-0 text-right">
-          <h3 className="m-0 text-[0.72rem] uppercase tracking-[0.03em] text-slate-600">{t.live.overallTimer}</h3>
+          <h3 className="m-0 text-xs uppercase tracking-[0.03em] text-txt-secondary">{t.live.overallTimer}</h3>
           <strong
             id="overall-timer"
             data-testid="overall-timer"
-            className="block text-[1.1rem] text-slate-900 sm:text-[1.25rem]"
+            className="block text-lg text-txt sm:text-xl"
           >
             {formatTime(totalSeconds)}
           </strong>

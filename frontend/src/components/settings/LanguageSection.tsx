@@ -13,10 +13,10 @@ export const LanguageSection = (): JSX.Element => {
 
   return (
     <div className="grid gap-2">
-      <span className="text-[0.72rem] font-semibold uppercase tracking-[0.05em] text-slate-500">
+      <span className="text-xs font-semibold uppercase tracking-[0.05em] text-txt-tertiary">
         {t.settings.language}
       </span>
-      <div className="flex items-center gap-0.5 self-start rounded-full border border-slate-200 bg-slate-50 p-0.5">
+      <div className="flex items-center gap-0.5 self-start rounded-full border border-border bg-card-alt p-0.5">
         {LOCALES.map(({ key, label }) => (
           <button
             key={key}
@@ -24,8 +24,8 @@ export const LanguageSection = (): JSX.Element => {
             onClick={() => setLocale(key)}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
               locale === key
-                ? "bg-white text-slate-900 shadow-sm"
-                : "text-slate-500 hover:text-slate-700"
+                ? "bg-card text-txt shadow-sm"
+                : "text-txt-tertiary hover:text-txt-secondary"
             }`}
           >
             {label}

@@ -22,7 +22,7 @@ export const EditScheduleModal = (): JSX.Element | null => {
     <div
       id="edit-modal-backdrop"
       data-testid="edit-modal-backdrop"
-      className="fixed inset-0 z-40 flex items-center justify-center bg-slate-900/30 p-3 sm:p-4"
+      className="fixed inset-0 z-40 flex items-center justify-center bg-txt/30 p-3 sm:p-4"
       onClick={onClose}
       role="presentation"
     >
@@ -34,7 +34,7 @@ export const EditScheduleModal = (): JSX.Element | null => {
         aria-modal="true"
         aria-label={t.edit.title}
         onClick={(event) => event.stopPropagation()}
-        className="flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[1120px] flex-col gap-2 overflow-y-auto rounded-2xl bg-white p-3 shadow-[0_22px_48px_rgba(15,23,42,0.22)] [overflow-anchor:none] sm:max-h-[86vh] sm:rounded-[14px] sm:p-4"
+        className="flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[1120px] flex-col gap-2 overflow-y-auto rounded-2xl bg-card p-3 shadow-[0_22px_48px_rgba(15,23,42,0.22)] [overflow-anchor:none] sm:max-h-[86vh] sm:rounded-[14px] sm:p-4"
       >
         <EditScheduleHeader onAdd={addActivity} onClose={onClose} />
 

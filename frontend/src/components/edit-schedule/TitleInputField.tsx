@@ -26,11 +26,11 @@ export const TitleInputField = ({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={t.edit.activityName}
-        className="min-h-10 w-full rounded-lg border border-slate-300 px-2.5 py-2 pr-[74px] text-sm text-slate-900 outline-none ring-0 transition focus:border-indigo-400"
+        className="min-h-10 w-full rounded-lg border border-border-strong px-2.5 py-2 pr-[74px] text-sm text-txt outline-none ring-0 transition focus:border-brand"
       />
       {moveHint && (
         <span
-          className={`pointer-events-none absolute right-2 top-1 inline-flex whitespace-nowrap rounded-full px-2 py-0.5 text-[0.72rem] font-semibold ${
+          className={`pointer-events-none absolute right-2 top-1 inline-flex whitespace-nowrap rounded-full px-2 py-0.5 text-xs font-semibold ${
             moveHint === "up" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
           } animate-move-hint`}
         >

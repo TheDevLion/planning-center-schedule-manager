@@ -13,7 +13,7 @@ type ControlButtonProps = {
 };
 
 const BASE_CLASS =
-  "inline-flex items-center justify-center rounded-[10px] border border-slate-300 bg-slate-50 text-slate-900 transition hover:border-slate-400 hover:bg-indigo-50 disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-[10px] border border-btn-border bg-btn-bg text-brand font-medium shadow-sm transition hover:border-btn-hover-border hover:bg-btn-hover-bg active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50";
 
 export const ControlButton = ({
   id,
@@ -26,7 +26,7 @@ export const ControlButton = ({
   label,
   variant = "full",
 }: ControlButtonProps): JSX.Element => {
-  const sizeClass = variant === "square" ? "h-7 w-7 md:h-9 md:w-9" : "min-h-8 w-full md:min-h-10";
+  const sizeClass = variant === "square" ? "h-9 w-9 md:h-10 md:w-10" : "min-h-10 w-full md:min-h-11";
   const contentClass = label ? "gap-1 px-2 text-sm font-semibold" : "";
 
   return (
