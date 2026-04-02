@@ -1,4 +1,4 @@
-import { Check, Loader2, Share2, Upload } from "lucide-react";
+import { Check, Loader2, Share2, Trash2, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 
@@ -15,6 +15,7 @@ export const ScheduleSection = (): JSX.Element => {
   const isLoading = useScheduleStore((s) => s.isLoading);
   const error = useScheduleStore((s) => s.error);
   const uploadFile = useScheduleStore((s) => s.uploadFile);
+  const clearActivities = useScheduleStore((s) => s.clearActivities);
 
   const handleUpload = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = event.target.files?.[0];
@@ -72,6 +73,18 @@ export const ScheduleSection = (): JSX.Element => {
           <Share2 size={16} className="text-txt-tertiary" />
         )}
         <span>{copied ? t.settings.linkCopied : t.settings.shareSchedule}</span>
+      </button>
+
+      <button
+        id="clear-button"
+        data-testid="clear-button"
+        type="button"
+        onClick={clearActivities}
+        disabled={activities.length === 0}
+        className="flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50 active:bg-red-100 disabled:opacity-50"
+      >
+        <Trash2 size={16} />
+        <span>{t.settings.resetSchedule}</span>
       </button>
 
       {error && (

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 import {
   concludeTransition,
@@ -48,6 +49,7 @@ type ScheduleActions = {
   setIsSettingsOpen: (open: boolean) => void;
   setAutoAdvance: (value: boolean) => void;
   importFromUrl: () => void;
+  clearActivities: () => void;
 };
 
 const toTimeline = (s: ScheduleState): TimelineState => ({
@@ -65,7 +67,7 @@ const toRuntime = (s: ScheduleState): RuntimeState => ({
 
 export type ScheduleStore = ScheduleState & ScheduleActions;
 
-export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
+export const useScheduleStore = create<ScheduleStore>()(persist((set, get) => ({
   activities: [],
   liveIndex: 0,
   viewIndex: 0,
@@ -213,4 +215,18 @@ export const useScheduleStore = create<ScheduleStore>()((set, get) => ({
     });
     window.history.replaceState(null, "", window.location.pathname + window.location.search);
   },
+
+  clearActivities: () =>
+    set({
+      activities: [],
+      liveIndex: 0,
+      viewIndex: 0,
+      actualSecondsById: {},
+      isRunning: false,
+      totalSeconds: 0,
+      liveActivitySeconds: 0,
+    }),
+}), {
+  name: "schedule-storage",
+  partialize: (state) => ({ activities: state.activities }),
 }));
